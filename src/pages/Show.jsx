@@ -10,7 +10,7 @@ function Show(props) {
   let navigate = useNavigate();
 
   const [feedings, setFeedings] = useState(null)
-  const URL = `http://localhost:3001/babies/${id}`
+  const URL = `https://629d1fb923af520008df0f95--melodic-pegasus-6380f1.netlify.app/babies/${id}`
 
   const getFeedings = async () => {
       const response = await fetch(URL)
