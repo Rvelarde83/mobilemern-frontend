@@ -10,7 +10,7 @@ function Show(props) {
   let navigate = useNavigate();
 
   const [feedings, setFeedings] = useState(null)
-  const URL = `https://main--melodic-pegasus-6380f1.netlify.app/babies/${id}`
+  const URL = `https://mern-mobile-backend.herokuapp.com/babies/${id}`
 
   const getFeedings = async () => {
       const response = await fetch(URL)
@@ -54,7 +54,7 @@ const loaded = () => {
   return feed.map((feeding) => (
       <div key={feed._id} className="feeding">
           <h2 className="name-show"> Feedings</h2>
-          <Link to={`/feeding/${feeding._id}`}>
+          <Link to={`https://mern-mobile-backend.herokuapp.com/feeding/${feeding._id}`}>
                 <h3>Feeding of: {feeding.createdAt}</h3>
                 </Link>
           
