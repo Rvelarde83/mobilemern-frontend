@@ -2,13 +2,14 @@ import { useEffect, useState } from "react"
 import { Routes, Route } from "react-router-dom"
 import Index from "../pages/Index"
 import Show from "../pages/Show"
+import ShowFeeding from "../pages/ShowFeeding"
 
 
 
 
 function Main(props) {
     const [babies, setBabies] = useState(null)
-    const URL = "https://mern-mobile-backend.herokuapp.com/babies"
+    const URL = "https://mern-mobile-backend.herokuapp.com/babies/"
 
     const getBabies = async () => {
         const response = await fetch(URL)
@@ -33,15 +34,15 @@ function Main(props) {
             headers: {
                 "Content-Type": "Application/json",
             },
-            body:JSON.stringify(baby),
+            body: JSON.stringify(baby),
         })
-   // update list of babies
-   getBabies()
-}
+        // update list of babies
+        getBabies()
+    }
 
-    const deleteBabies = async (id) =>{
+    const deleteBabies = async (id) => {
         await fetch(URL + id, {
-            method:'DELETE',
+            method: 'DELETE',
         })
         getBabies()
     }
@@ -55,14 +56,18 @@ function Main(props) {
             <Routes>
                 <Route
                     path="/" element={<Index babies={babies} createBabies={createBabies} />} />
-                <Route path="babies/:id"  element={
-                <Show
-                    babies={babies}
-                    updateBabies={updateBabies}
-                    deleteBabies={deleteBabies}
-/>
-                }
+                <Route path="babies/:id" element={
+                    <Show
+                        babies={babies}
+                        updateBabies={updateBabies}
+                        deleteBabies={deleteBabies}
+                    />}
                 />
+                <Route path="feeding/:id" element={
+                    <ShowFeeding
+                    babies={babies} />
+                }/>
+
             </Routes>
         </main>
     )

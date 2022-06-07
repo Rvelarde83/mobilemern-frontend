@@ -1,7 +1,10 @@
 
 import { useParams, useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, } from "react"
 import { Link } from "react-router-dom"
+import { Routes, Route } from "react-router-dom"
+import ShowFeeding from "../pages/ShowFeeding"
+const moment= require('moment')
 
 function Show(props) {
   const { id } = useParams();
@@ -19,7 +22,7 @@ function Show(props) {
       
   }
 
-
+console.log(props)
 
   const [editForm, setEditForm] = useState(baby);
 
@@ -44,23 +47,30 @@ function Show(props) {
   useEffect(() => {
     getFeedings()
 }, [])
-console.log(feedings)
-// console.log(feedings)
-const moment = require('moment');
+
+
+
+
+
+
+
 const loaded = () => {
   const feed= feedings.feed   
- 
+   const date = moment(feed.createdAt)
+        // console.log(date)
+        var dateComponent = date.utc().format('MM-DD-YYYY');
+        var timeComponent = date.utc().format('HH:mm');
      
   return feed.map((feeding) => (
       <div key={feed._id} className="feeding">
-          <h2 className="name-show"> Feedings</h2>
-          <Link to={`https://mern-mobile-backend.herokuapp.com/feeding/${feeding._id}`}>
-                <h3>Feeding of: {feeding.createdAt}</h3>
-                </Link>
           
+          <Link to={`/feeding/${feeding._id}`} state={feed}>
+                <h3>Feeding of: {dateComponent} at:{timeComponent} </h3>
+                </Link>
+                
       </div>
   ))
-
+  
   
 }
 const loading = () => {
@@ -115,6 +125,7 @@ const loading = () => {
        <h2>{}</h2>
     </div>
     
+<h2 className="name-show"> Feedings</h2>
  
     {feedings ? loaded() : loading()}
           </div>
